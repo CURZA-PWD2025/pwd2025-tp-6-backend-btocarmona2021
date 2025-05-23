@@ -54,7 +54,6 @@ class ProveedorModel:
                 cursor.execute("SELECT * FROM PROVEEDORES WHERE id=%s", (self.id,))
                 proveedor = cursor.fetchone()
                 if proveedor:
-                    print(proveedor)
                     return proveedor
                 return False
         except Exception as ex:
@@ -67,7 +66,7 @@ class ProveedorModel:
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute(
-                    "INSERT INTO PROVEEDORES (nombre,telefono,direccion,email) values(%s,%s,%s,%s)",
+                    "INSERT INTO PROVEEDORES (nombre,telefono,direccion,email) values (%s,%s,%s,%s)",
                     (self.nombre, self.telefono, self.direccion, self.email),
                 )
                 conn.commit()

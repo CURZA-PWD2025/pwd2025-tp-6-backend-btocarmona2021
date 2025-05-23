@@ -36,6 +36,7 @@ def crear_marca():
         if result:
             return jsonify(result), 201
     except Exception as ex:
+        print(type(ex).__name__)
         return jsonify({"message": f"Ha ocurrido un error {ex}"}), 500
 
 
@@ -58,7 +59,7 @@ def eliminar_marca(id):
     try:
         result = MarcaController.eliminar_marca(id)
         if result != False:
-            return jsonify(result), 201
+            return jsonify(result), 200
         else:
             return {"message": f"No se encontro la marca con el id: {id}"}, 404
     except Exception as ex:
