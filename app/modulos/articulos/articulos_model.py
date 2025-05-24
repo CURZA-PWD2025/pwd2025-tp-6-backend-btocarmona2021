@@ -86,7 +86,6 @@ class ArticuloModel:
                     ),
                 )
                 conn.commit()
-                cursor.execute("INSERT INTO ARTICULOS_CATEGORIAS (articulo_id,categoria_id) values (%s,%s)",(self.id,se))
                 id = cursor.lastrowid
                 cursor.execute("SELECT * FROM ARTICULOS WHERE id=%s", (id,))
                 articulo_creado = cursor.fetchone()

@@ -22,11 +22,6 @@ class ArticuloController:
         prov = Proveedor(id=data["proveedor_id"]).obtener_proveedor()
         marca = Marca.deserializar(mark)
         proveedor = Proveedor.deserializar(prov)
-        # cat =  Categoria(id=data["categoria_id"]).obtener_categoria()
-        # categoria = Categoria.deserializar(cat)
-
         articulo = ArticuloModel(descripcion=data["descripcion"],precio=data["precio"],stock=data["stock"],marca=marca,proveedor=proveedor)
-        articulo["categoria_id"]= data["categoria_id"]
-        print(articulo)
         result = articulo.crear_articulo()
         return result
