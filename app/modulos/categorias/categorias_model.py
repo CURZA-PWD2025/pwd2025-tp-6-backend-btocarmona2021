@@ -38,8 +38,8 @@ class CategoriaModel:
                 cursor.execute("SELECT * FROM CATEGORIAS WHERE id=%s", (self.id,))
                 cat = cursor.fetchone()
                 if cat:
-                    return (cat,)
-                return (False,)
+                    return (cat)
+                return (False)
 
         except Exception as ex:
             return {"message": f"No se encontro la categoria {str(ex)}"}
