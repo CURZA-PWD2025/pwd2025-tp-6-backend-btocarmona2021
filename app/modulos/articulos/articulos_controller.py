@@ -53,3 +53,9 @@ class ArticuloController:
         )
         result = articulo.modificar_articulo()
         return result
+
+    @staticmethod
+    def eliminar_articulo(id:id):
+        articulo = ArticuloModel(id=id)
+        result = articulo.eliminar_articulo()
+        return result

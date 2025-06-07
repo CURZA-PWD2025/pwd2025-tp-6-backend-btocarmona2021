@@ -29,3 +29,9 @@ def modificar_articulo(id):
     data["id"]=id
     articulo = ArticuloController.modificar_articulo(data=data)
     return jsonify(articulo)
+
+
+@articulo_bp.route("/articulo/<int:id>", methods=["DELETE"])
+def eliminar_articulo(id):
+    articulo = ArticuloController.eliminar_articulo(id)
+    return jsonify(articulo)

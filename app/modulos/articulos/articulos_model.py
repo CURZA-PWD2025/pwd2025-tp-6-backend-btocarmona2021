@@ -97,19 +97,22 @@ class ArticuloModel:
                 cursor.execute("SELECT * FROM ARTICULOS WHERE id=%s", (self.id,))
                 articulo = cursor.fetchone()
                 cursor.execute(
-                    "SELECT * FROM ARTICULOS_CATEGORIAS WHERE articulo_id=%s",(self.id,)
+                    "SELECT * FROM ARTICULOS_CATEGORIAS WHERE articulo_id=%s",
+                    (self.id,),
                 )
                 indices_categorias = cursor.fetchall()
                 categorias = []
                 for categoria in indices_categorias:
-                    categoria = Categoria(id=categoria["categoria_id"]).obtener_categoria()
+                    categoria = Categoria(
+                        id=categoria["categoria_id"]
+                    ).obtener_categoria()
                     categorias.append(categoria)
                 marca = Marca(articulo["marca_id"]).obtener_marca()
                 proveedor = Proveedor(articulo["proveedor_id"]).obtener_proveedor()
                 del articulo["marca_id"]
                 del articulo["proveedor_id"]
-                articulo["marca"]=marca
-                articulo["proveedor"]=proveedor
+                articulo["marca"] = marca
+                articulo["proveedor"] = proveedor
                 articulo["categorias"] = categorias
                 if articulo:
                     return articulo
@@ -188,5 +191,20 @@ class ArticuloModel:
                     return False
         except Exception as ex:
             return {"message": f"Ha ocurrido un error: {ex}"}
+        finally:
+            conn.close()
+
+    def eliminar_articulo(self):
+        print(self.id)
+        conn = conectarDB.conectar()
+        try:
+            with conn.cursor(dictionary=True) as cursor:
+                cursor.execute("DELETE FROM ARTICULOS_CATEGORIAS WHERE articulo_id=%s",(self.id,))
+                conn.commit()
+                cursor.execute("DELETE FROM ARTICULOS WHERE id=%s",(self.id,))
+                conn.commit()
+                return {"message": "Se ha eliminado el articulo"}
+        except Exception as ex:
+            return {"message": f"Ha ocurrido un error {ex}"}
         finally:
             conn.close()
