@@ -47,7 +47,6 @@ class ProveedorModel:
             conn.close()
 
     def obtener_proveedor(self):
-        print(self.id)
         conn = conectarDB.conectar()
         try:
             with conn.cursor(dictionary=True) as cursor:
