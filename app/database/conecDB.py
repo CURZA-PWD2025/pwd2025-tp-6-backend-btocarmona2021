@@ -1,9 +1,10 @@
 import mysql.connector
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import os
 
-load_dotenv()
-
+dotenv_path = find_dotenv()
+print("Cargando .env desde:", dotenv_path)
+load_dotenv(dotenv_path, override=True)
 
 class conectarDB:
     @staticmethod

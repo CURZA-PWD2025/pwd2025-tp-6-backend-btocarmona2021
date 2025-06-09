@@ -10,7 +10,6 @@ class CategoriaController:
     @staticmethod
     def obtener_categoria(id):
         categoria = CategoriaModel(id=id).obtener_categoria()
-        p
         return categoria
 
     @staticmethod

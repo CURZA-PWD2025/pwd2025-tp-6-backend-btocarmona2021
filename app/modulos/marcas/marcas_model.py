@@ -95,6 +95,7 @@ class MarcaModel:
                     return {"message": f"marca eliminada correctamente: {marca}"}
                 return False
         except Exception as ex:
+            print(type(ex))
             return {"message": f"Ha ocurrido un error {ex}"}
         finally:
             conn.close()

@@ -1,10 +1,13 @@
 # Imagen base oficial de Python
 FROM python:3.11-slim
 
+# Evitar buffers en stdout para que logs se vean en tiempo real
+ENV PYTHONUNBUFFERED=1
+
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar requirements.txt y luego instalar dependencias
+# Copiar requirements.txt y luego instalar dependencias (para aprovechar cache)
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
@@ -16,4 +19,4 @@ COPY . .
 EXPOSE 5000
 
 # Comando para ejecutar la app
-CMD ["python", "app.py"]
+CMD ["python", "run.py"]
