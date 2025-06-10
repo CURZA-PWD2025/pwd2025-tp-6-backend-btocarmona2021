@@ -11,9 +11,9 @@ def obtener_marcas():
         if len(marcas) > 0:
             return jsonify(marcas), 200
         else:
-            return jsonify({"message": "No se encontraron marcas"})
+            return jsonify({"message": "No se encontraron marcas"}),404
     except Exception as ex:
-        return jsonify({"mnessage": "Ha ocurrido un error {ex}"})
+        return jsonify({"mnessage": "Ha ocurrido un error {ex}"}),500
 
 
 @marca_bp.route("/marca/<int:id>")
@@ -23,9 +23,9 @@ def obtener_marca(id):
         if marca:
             return jsonify(marca), 200
         else:
-            return jsonify({"message": "No se encontro la marca"})
+            return jsonify({"message": "No se encontro la marca"}),404
     except Exception as ex:
-        return jsonify({"mnessage": f"Ha ocurrido un error {ex}"})
+        return jsonify({"mnessage": f"Ha ocurrido un error {ex}"}),500
 
 
 @marca_bp.route("/marca", methods=["POST"])
