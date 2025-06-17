@@ -13,7 +13,7 @@ def obtener_marcas():
         else:
             return jsonify({"message": "No se encontraron marcas"}),404
     except Exception as ex:
-        return jsonify({"mnessage": "Ha ocurrido un error {ex}"}),500
+        return jsonify({"message": "Ha ocurrido un error {ex}"}),500
 
 
 @marca_bp.route("/marca/<int:id>")

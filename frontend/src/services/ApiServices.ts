@@ -8,8 +8,10 @@ export class ApiService {
             if (respuesta.status === 200) {
                 return respuesta.data
             }
-        } catch (error) {
-            return error
+        } catch (error:any) {
+            console.log(error.message);
+            
+            
         }
     }
     static async obtenerUno(url: string, id: number) {
@@ -32,7 +34,7 @@ export class ApiService {
             return error
         }
     }
-    static async modificar(url: string, id: number, marca: Marca) {
+    static async modificar(url: string, id: number, marca: Object) {
         try {
             const respuesta = await api.put(url + id, marca)
             if (respuesta) {

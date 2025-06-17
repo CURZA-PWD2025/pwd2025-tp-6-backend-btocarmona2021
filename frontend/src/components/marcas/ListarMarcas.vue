@@ -10,7 +10,6 @@ onMounted(async () => {
   await obtenerTodo()
 })
 
-
 </script>
 
 <template>
