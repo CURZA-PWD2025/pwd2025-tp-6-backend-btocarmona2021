@@ -1,44 +1,38 @@
 <script setup lang="ts">
-import { onMounted, toRefs, watch } from 'vue'
-import useMarcasStore from '@/stores/marcas'
-import { useRouter, useRoute } from 'vue-router'
+import { toRefs, watch } from 'vue'
+import useProveedoresStore from '@/stores/proveedores'
+import { useRouter } from 'vue-router'
+const { proveedor, crear, proveedores } = toRefs(useProveedoresStore())
 
-const { marca, marcas } = toRefs(useMarcasStore())
-const { modificar } = useMarcasStore()
 const router = useRouter()
-const route = useRoute()
 
-watch(marcas, () => {
-    router.push({ name: 'listar_marcas' })
-})
-
-onMounted(() => {
-    const id = Number(route.params.id)
-    marca.value = marcas.value.find((marca) => marca.id === id) || { id: 0, nombre: '' }
+watch(proveedor, () => {
+    router.push({ name: 'listar_provedores' })
 })
 </script>
 
 <template>
-    <div class="modificar-marca-container">
-        <h2>Modificar Marca</h2>
-        <form class="modificar-marca-form" @submit.prevent="modificar(marca,Number(marca.id))">
-            <label for="nombre" class="form-label">Nombre de la marca</label>
+    <div class="crear-proveedor-container">
+        <h2>Crear Proveedor</h2>
+        <form class="crear-proveedor-form" @submit.prevent="crear(proveedor)">
+            <label for="nombre" class="form-label">Nombre del proveedor</label>
             <input
                 id="nombre"
                 type="text"
-                v-model="marca.nombre"
+                v-model="proveedor.nombre"
                 class="form-input"
-                placeholder="Ej: Lenovo"
+                placeholder="Ej: Tech Solutions SRL"
                 required
             />
-            <button class="btn primary" type="submit">Guardar Cambios</button>
+            <!-- Puedes agregar más campos aquí si tu modelo lo requiere -->
+            <button class="btn primary" type="submit">Guardar Proveedor</button>
         </form>
-        <router-link class="volver-link" :to="{ name: 'listar_marcas' }">← Volver</router-link>
+        <router-link class="volver-link" :to="{ name: 'listar_proveedores' }">← Volver</router-link>
     </div>
 </template>
 
 <style scoped>
-.modificar-marca-container {
+.crear-proveedor-container {
     background: #f8fafc;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(79, 140, 255, 0.08);
@@ -55,7 +49,7 @@ h2 {
     font-weight: 600;
 }
 
-.modificar-marca-form {
+.crear-proveedor-form {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;

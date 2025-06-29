@@ -1,44 +1,47 @@
 <script setup lang="ts">
 import { onMounted, toRefs, watch } from 'vue'
-import useMarcasStore from '@/stores/marcas'
+import useCategoriasStore from '@/stores/categorias'
 import { useRouter, useRoute } from 'vue-router'
 
-const { marca, marcas } = toRefs(useMarcasStore())
-const { modificar } = useMarcasStore()
+const { categoria, categorias } = toRefs(useCategoriasStore())
+const { modificar } = useCategoriasStore()
 const router = useRouter()
 const route = useRoute()
 
-watch(marcas, () => {
-    router.push({ name: 'listar_marcas' })
+watch(categorias, () => {
+    router.push({ name: 'listar_categgorias' })
 })
 
 onMounted(() => {
     const id = Number(route.params.id)
-    marca.value = marcas.value.find((marca) => marca.id === id) || { id: 0, nombre: '' }
+    categoria.value = categorias.value.find((categoria) => categoria.id === id) || {
+        id: 0,
+        nombre: '',
+    }
 })
 </script>
 
 <template>
-    <div class="modificar-marca-container">
-        <h2>Modificar Marca</h2>
-        <form class="modificar-marca-form" @submit.prevent="modificar(marca,Number(marca.id))">
-            <label for="nombre" class="form-label">Nombre de la marca</label>
+    <div class="modificar-categoria-container">
+        <h2>Modificar Categoría</h2>
+        <form class="modificar-categoria-form" @submit.prevent="modificar(categoria,Number(categoria.id))">
+            <label for="nombre" class="form-label">Nombre de la categoría</label>
             <input
                 id="nombre"
                 type="text"
-                v-model="marca.nombre"
+                v-model="categoria.nombre"
                 class="form-input"
-                placeholder="Ej: Lenovo"
+                placeholder="Ej: Periféricos"
                 required
             />
             <button class="btn primary" type="submit">Guardar Cambios</button>
         </form>
-        <router-link class="volver-link" :to="{ name: 'listar_marcas' }">← Volver</router-link>
+        <router-link class="volver-link" :to="{ name: 'listar_categorias' }">← Volver</router-link>
     </div>
 </template>
 
 <style scoped>
-.modificar-marca-container {
+.modificar-categoria-container {
     background: #f8fafc;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(79, 140, 255, 0.08);
@@ -55,7 +58,7 @@ h2 {
     font-weight: 600;
 }
 
-.modificar-marca-form {
+.modificar-categoria-form {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;

@@ -1,44 +1,80 @@
 <script setup lang="ts">
 import { onMounted, toRefs, watch } from 'vue'
-import useMarcasStore from '@/stores/marcas'
+import useProveedoresStore from '@/stores/proveedores'
 import { useRouter, useRoute } from 'vue-router'
 
-const { marca, marcas } = toRefs(useMarcasStore())
-const { modificar } = useMarcasStore()
+const { proveedor, proveedores } = toRefs(useProveedoresStore())
+const { modificar } = useProveedoresStore()
 const router = useRouter()
 const route = useRoute()
 
-watch(marcas, () => {
+watch(proveedores, () => {
     router.push({ name: 'listar_marcas' })
 })
 
 onMounted(() => {
     const id = Number(route.params.id)
-    marca.value = marcas.value.find((marca) => marca.id === id) || { id: 0, nombre: '' }
+    proveedor.value = proveedores.value.find((proveedor) => proveedor.id === id) || {
+        id: 0,
+        nombre: '',
+        telefono: '',
+        direccion: '',
+        email: '',
+    }
 })
 </script>
 
 <template>
-    <div class="modificar-marca-container">
-        <h2>Modificar Marca</h2>
-        <form class="modificar-marca-form" @submit.prevent="modificar(marca,Number(marca.id))">
-            <label for="nombre" class="form-label">Nombre de la marca</label>
+    <div class="modificar-proveedor-container">
+        <h2>Modificar Proveedor</h2>
+        <form
+            class="modificar-proveedor-form"
+            @submit.prevent="modificar(proveedor, Number(proveedor.id))"
+        >
+            <label for="nombre" class="form-label">Nombre del proveedor</label>
             <input
                 id="nombre"
                 type="text"
-                v-model="marca.nombre"
+                v-model="proveedor.nombre"
                 class="form-input"
-                placeholder="Ej: Lenovo"
+                placeholder="Ej: Tech Solutions SRL"
+                required
+            />
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input
+                id="telefono"
+                type="text"
+                v-model="proveedor.telefono"
+                class="form-input"
+                placeholder="Ej: 1144556677"
+                required
+            />
+            <label for="direccion" class="form-label">Dirección</label>
+            <input
+                id="direccion"
+                type="text"
+                v-model="proveedor.direccion"
+                class="form-input"
+                placeholder="Ej: Av. Córdoba 1234, CABA"
+                required
+            />
+            <label for="email" class="form-label">E-mail</label>
+            <input
+                id="email"
+                type="email"
+                v-model="proveedor.email"
+                class="form-input"
+                placeholder="Ej: contacto@techsolutions.com.ar"
                 required
             />
             <button class="btn primary" type="submit">Guardar Cambios</button>
         </form>
-        <router-link class="volver-link" :to="{ name: 'listar_marcas' }">← Volver</router-link>
+        <router-link class="volver-link" :to="{ name: 'listar_proveedores' }">← Volver</router-link>
     </div>
 </template>
 
 <style scoped>
-.modificar-marca-container {
+.modificar-proveedor-container {
     background: #f8fafc;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(79, 140, 255, 0.08);
@@ -55,7 +91,7 @@ h2 {
     font-weight: 600;
 }
 
-.modificar-marca-form {
+.modificar-proveedor-form {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;

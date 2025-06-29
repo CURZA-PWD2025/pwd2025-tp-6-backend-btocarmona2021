@@ -9,16 +9,16 @@ const useMarcasStore = defineStore('marcas', () => {
         id: 0,
         nombre: '',
     })
+    const errores = ref('')
 
     async function obtenerTodo() {
         try {
             const data = await ApiService.obtenerTodo('/marcas')
             if (data) {
                 marcas.value = data
-                return data
             }
         } catch (error: any) {
-            console.log(error.message)
+            errores.value = error.message
         }
     }
 
@@ -27,20 +27,25 @@ const useMarcasStore = defineStore('marcas', () => {
             const data = await ApiService.obtenerUno('/marca', id)
             if (data) {
                 marca.value = data
+                return data
             }
         } catch (error: any) {
-            console.log(error.message)
+            errores.value = error.message
         }
     }
 
     async function crear(marca: Marca) {
         try {
+            if (!marca.nombre) {
+                throw new Error('Debe completar el campo nombre')
+            }
             const data = await ApiService.crear('/marca', marca)
             if (data) {
                 obtenerTodo()
+                errores.value = ''
             }
         } catch (error: any) {
-            console.log(error.message)
+            errores.value = error.message
         }
     }
 
@@ -53,8 +58,7 @@ const useMarcasStore = defineStore('marcas', () => {
                 console.log(data.error)
             }
         } catch (error: any) {
-            
-            console.log(error.message)
+            errores.value = error.message
         }
     }
     async function eliminar(id: number) {
@@ -62,15 +66,12 @@ const useMarcasStore = defineStore('marcas', () => {
             const data = await ApiService.eliminar('/marca/', id)
             if (data) {
                 await obtenerTodo()
-                console.log(data)
-            } else {
-                console.log(data.error)
             }
         } catch (error: any) {
-            console.log(error.message)
+            errores.value = error.message
         }
     }
-    return { marcas, marca, obtenerTodo, obtenerUno, crear, modificar, eliminar }
+    return { marcas, marca, errores, obtenerTodo, obtenerUno, crear, modificar, eliminar }
 })
 
 export default useMarcasStore
