@@ -45,6 +45,7 @@ const useArticulosStore = defineStore('articulos', () => {
     }
 
     async function crear(articulo: Articulo) {
+        
         try {
             const data = await ApiService.crear('/articulo', articulo)
             if (data) {

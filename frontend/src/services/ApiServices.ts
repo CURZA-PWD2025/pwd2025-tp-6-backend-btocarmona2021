@@ -4,14 +4,14 @@ import { api } from '@/plugins/axios'
 export class ApiService {
     static async obtenerTodo(url: string) {
         try {
-            const respuesta = await api.get(url)
+            const respuesta = await api.get(url) 
             if (respuesta.status === 200) {
                 return respuesta.data
+            } else {
+                return respuesta.data.error
             }
         } catch (error:any) {
-            console.log(error.message);
-            
-            
+            return error.message
         }
     }
     static async obtenerUno(url: string, id: number) {
@@ -20,18 +20,20 @@ export class ApiService {
             if (respuesta) {
                 return respuesta.data
             }
-        } catch (error) {
-            return error
+        } catch (error:any) {
+            return error.message
         }
     }
     static async crear(url: string, data: object) {
+        console.log(data);
+        
         try {
             const respuesta = await api.post(url, data)
             if (respuesta) {
                 return respuesta.data
             }
-        } catch (error) {
-            return error
+        } catch (error:any) {
+            return error.message
         }
     }
     static async modificar(url: string, id: number, marca: Object) {
@@ -40,16 +42,16 @@ export class ApiService {
             if (respuesta) {
                 return respuesta.data
             }
-        } catch (error) {
-            return error
+        } catch (error:any) {
+            return error.message
         }
     }
     static async eliminar(url: string, id: number) {
         try {
             const respuesta = await api.delete(url + id)
             return respuesta.data
-        } catch (error) {
-            return error
+        } catch (error:any) {
+            return error.message
         }
     }
 }

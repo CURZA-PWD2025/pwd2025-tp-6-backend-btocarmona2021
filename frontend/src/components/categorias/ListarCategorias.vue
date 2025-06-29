@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onMounted, toRefs } from 'vue'
-import useMarcasStore from '@/stores/marcas.ts'
+import useCategoriasStore from '@/stores/categorias'
+
 import { Icon } from '@iconify/vue'
 
-const { marcas } = toRefs(useMarcasStore())
-const { obtenerTodo, eliminar } = useMarcasStore()
+const { categorias } = toRefs(useCategoriasStore())
+const { obtenerTodo, eliminar } = useCategoriasStore()
 
 onMounted(async () => {
     await obtenerTodo()
@@ -12,34 +13,40 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="listar-marcas-container">
+    <div class="listar-categorias-container">
         <div class="header-row">
-            <h2>Listado de Marcas</h2>
-            <router-link class="btn primary" :to="{ name: 'crear_marca' }">Crear Marca</router-link>
+            <h2>Listado de Categorías</h2>
+            <router-link class="btn primary" :to="{ name: 'crear_categoria' }"
+                >Crear Categoría</router-link
+            >
         </div>
         <table class="styled-table">
             <caption>
-                Listado de Marcas
+                Listado de Categorías
             </caption>
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
+                    <th>Descripción</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(marca, index) in marcas" :key="index">
-                    <td>{{ marca.id }}</td>
-                    <td>{{ marca.nombre }}</td>
+                <tr v-for="(categoria, index) in categorias" :key="index">
+                    <td>{{ categoria.id }}</td>
+                    <td>{{ categoria.nombre }}</td>
                     <td>
-                        <router-link :to="{ name: 'mostrar_marca', params: { id: marca.id } }">
+                        <router-link
+                            :to="{ name: 'mostrar_categoria', params: { id: categoria.id } }"
+                        >
                             <Icon icon="mdi:show" width="24" height="24" />
                         </router-link>
-                        <router-link :to="{ name: 'modificar_marca', params: { id: marca.id } }">
+                        <router-link
+                            :to="{ name: 'modificar_categoria', params: { id: categoria.id } }"
+                        >
                             <Icon icon="ic:baseline-mode-edit" width="24" height="24" />
                         </router-link>
-                        <button class="icon-btn" @click.prevent="eliminar(marca.id)">
+                        <button class="icon-btn" @click.prevent="eliminar(categoria.id as number)">
                             <Icon
                                 icon="material-symbols:delete"
                                 width="24"
@@ -55,7 +62,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.listar-marcas-container {
+.listar-categorias-container {
     background: #f8fafc;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(79, 140, 255, 0.08);
@@ -95,6 +102,7 @@ onMounted(async () => {
     background: #2563eb;
 }
 
+/* --- Tabla estilo marcas --- */
 .styled-table {
     width: 100%;
     border-collapse: collapse;

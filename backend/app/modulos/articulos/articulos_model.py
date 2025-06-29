@@ -51,12 +51,14 @@ class ArticuloModel:
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT * FROM ARTICULOS")
+                
                 articulos = []
 
                 arts = cursor.fetchall()
                 if len(arts) > 0:
                     for articulo in arts:
-                        cursor.execute(
+                        cursor.exec
+                        ute(
                             "SELECT categoria_id FROM ARTICULOS_CATEGORIAS WHERE articulo_id = %s",
                             (articulo["id"],),
                         )
@@ -73,8 +75,8 @@ class ArticuloModel:
                         articulo["marca"] = marca
                         # Agrego el Proveedor al articulo
                         articulo["proveedor"] = proveedor
-                        del articulo["marca_id"]
-                        del articulo["proveedor_id"]
+                        # del articulo["marca_id"]
+                        # del articulo["proveedor_id"]
 
                         for cat in categorias:
                             categoria = Categoria(
@@ -89,7 +91,7 @@ class ArticuloModel:
         finally:
             conn.close()
 
-    def obtener_articulo(self):
+    def obtener_articulo(self): 
         conn = conectarDB.conectar()
         print(self.id)
         try:

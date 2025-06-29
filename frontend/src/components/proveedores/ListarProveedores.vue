@@ -1,45 +1,57 @@
 <script setup lang="ts">
+import useProveedoresStore from '@/stores/proveedores'
 import { onMounted, toRefs } from 'vue'
-import useMarcasStore from '@/stores/marcas.ts'
 import { Icon } from '@iconify/vue'
 
-const { marcas } = toRefs(useMarcasStore())
-const { obtenerTodo, eliminar } = useMarcasStore()
+const { proveedores } = toRefs(useProveedoresStore())
+const { obtenerTodo, eliminar } = useProveedoresStore()
 
 onMounted(async () => {
-    await obtenerTodo()
+    proveedores.value = await obtenerTodo()
 })
 </script>
 
 <template>
-    <div class="listar-marcas-container">
+    <div class="listar-proveedores-container">
         <div class="header-row">
-            <h2>Listado de Marcas</h2>
-            <router-link class="btn primary" :to="{ name: 'crear_marca' }">Crear Marca</router-link>
+            <h2>Listado de Proveedores</h2>
+            <router-link class="btn primary" :to="{ name: 'crear_proveedor' }"
+                >Crear Proveedor</router-link
+            >
         </div>
         <table class="styled-table">
             <caption>
-                Listado de Marcas
+                Listado de Proveedores
             </caption>
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>E-mail</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(marca, index) in marcas" :key="index">
-                    <td>{{ marca.id }}</td>
-                    <td>{{ marca.nombre }}</td>
-                    <td>
-                        <router-link :to="{ name: 'mostrar_marca', params: { id: marca.id } }">
+                <tr v-for="(proveedor, index) in proveedores" :key="index">
+                    <td>{{ proveedor.id }}</td>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.telefono }}</td>
+                    <td>{{ proveedor.direccion }}</td>
+                    <td>{{ proveedor.email }}</td>
+                    <td v-if="proveedor.id">
+                        <router-link
+                            :to="{ name: 'mostrar_proveedor', params: { id: proveedor.id } }"
+                        >
                             <Icon icon="mdi:show" width="24" height="24" />
                         </router-link>
-                        <router-link :to="{ name: 'modificar_marca', params: { id: marca.id } }">
+                        <router-link
+                            :to="{ name: 'modificar_proveedor', params: { id: proveedor.id } }"
+                        >
                             <Icon icon="ic:baseline-mode-edit" width="24" height="24" />
                         </router-link>
-                        <button class="icon-btn" @click.prevent="eliminar(marca.id)">
+                        <button class="icon-btn" @click.prevent="eliminar(proveedor.id as number)">
                             <Icon
                                 icon="material-symbols:delete"
                                 width="24"
@@ -55,12 +67,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.listar-marcas-container {
+.listar-proveedores-container {
     background: #f8fafc;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(79, 140, 255, 0.08);
     padding: 2rem 1.5rem 1.5rem 1.5rem;
-    max-width: 700px;
+    max-width: 900px;
     margin: 2rem auto 0 auto;
 }
 
@@ -95,6 +107,7 @@ onMounted(async () => {
     background: #2563eb;
 }
 
+/* --- Tabla estilo marcas/categorias --- */
 .styled-table {
     width: 100%;
     border-collapse: collapse;

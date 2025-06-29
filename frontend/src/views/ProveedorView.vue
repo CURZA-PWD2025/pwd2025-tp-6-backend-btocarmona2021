@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { RouterView, useRouter} from 'vue-router';
+import { onMounted } from 'vue';
 
+const route = useRouter()
+
+onMounted(() => {
+  route.push({ name:'listar_proveedores'})
+})
 </script>
 
 <template>
-  <div>
-    
+   <div>
+    <RouterView/>
   </div>
 </template>
 

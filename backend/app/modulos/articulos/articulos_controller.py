@@ -17,7 +17,7 @@ class ArticuloController:
         return articulo
 
     @staticmethod
-    def crear_articulo(data: dict):
+    def crear_articulo(data: dict): 
         mark = Marca(id=data["marca_id"]).obtener_marca()
         prov = Proveedor(id=data["proveedor_id"]).obtener_proveedor()
         marca = Marca.deserializar(mark)
