@@ -9,7 +9,8 @@ const useMarcasStore = defineStore('marcas', () => {
         id: 0,
         nombre: '',
     })
-    const errores = ref('')
+    const errores = ref<string>('')
+     
 
     async function obtenerTodo() {
         try {

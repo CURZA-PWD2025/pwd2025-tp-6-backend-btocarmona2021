@@ -16,6 +16,9 @@ class MarcaModel:
     @staticmethod
     def obtener_marcas():
         conn = conectarDB.conectar()
+        if conn is None:
+            print("No se pudo establecer conexión con la base de datos.")
+            return []
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT * FROM MARCAS")
@@ -33,6 +36,9 @@ class MarcaModel:
 
     def obtener_marca(self):
         conn = conectarDB.conectar()
+        if conn is None:
+            print("No se pudo establecer conexión con la base de datos.")
+            return []
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT * FROM MARCAS WHERE id=%s", (self.id,))
@@ -47,6 +53,9 @@ class MarcaModel:
 
     def crear_marca(self):
         conn = conectarDB.conectar()
+        if conn is None:
+            print("No se pudo establecer conexión con la base de datos.")
+            return []
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute(
@@ -66,6 +75,9 @@ class MarcaModel:
 
     def modificar_marca(self):
         conn = conectarDB.conectar()
+        if conn is None:
+            print("No se pudo establecer conexión con la base de datos.")
+            return []
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute(
@@ -85,6 +97,9 @@ class MarcaModel:
 
     def eliminar_marca(self):
         conn = conectarDB.conectar()
+        if conn is None:
+            print("No se pudo establecer conexión con la base de datos.")
+            return []
         try:
             with conn.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT * FROM MARCAS WHERE id=%s", (self.id,))

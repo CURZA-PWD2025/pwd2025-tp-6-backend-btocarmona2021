@@ -4,7 +4,7 @@ import { api } from '@/plugins/axios'
 export class ApiService {
     static async obtenerTodo(url: string) {
         try {
-            const respuesta = await api.get(url)
+            const respuesta = await api.get(url) 
             if (respuesta.status === 200) {
                 return respuesta.data
             } else {

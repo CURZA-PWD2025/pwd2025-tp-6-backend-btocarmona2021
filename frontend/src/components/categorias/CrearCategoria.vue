@@ -75,8 +75,8 @@ h2 {
 }
 
 .btn {
-    background: #e0e7ff;
-    color: #22223b;
+    background: #d1fae5; /* verde claro */
+    color: #065f46;
     border: none;
     border-radius: 6px;
     padding: 0.6rem 1.2rem;
@@ -88,12 +88,12 @@ h2 {
         color 0.2s;
 }
 .btn.primary {
-    background: #4f8cff;
+    background: #22c55e; /* verde principal */
     color: #fff;
 }
 .btn.primary:hover,
 .btn.primary:focus {
-    background: #2563eb;
+    background: #16a34a; /* verde más oscuro al pasar el mouse */
 }
 
 .volver-link {

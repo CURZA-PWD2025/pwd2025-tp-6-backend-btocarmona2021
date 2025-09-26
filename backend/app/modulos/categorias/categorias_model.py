@@ -99,4 +99,4 @@ class CategoriaModel:
         except Exception as ex:
             return {"message": f"Ha ocurrido un error {ex}"}
         finally:
-            conn.close()
+            conn.

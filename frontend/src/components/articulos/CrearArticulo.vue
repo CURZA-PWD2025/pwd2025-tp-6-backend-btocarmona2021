@@ -20,11 +20,7 @@ onMounted(async () => {
         stock: 0,
         marca_id: 0,
         marca: { id: 0, nombre: '' },
-        proveedor: { id: 0,
-            nombre: '',
-            direccion: '',
-            email: '',
-            telefono: ''},
+        proveedor: { id: 0, nombre: '', direccion: '', email: '', telefono: '' },
         proveedor_id: 0,
         categorias: [],
     }
@@ -68,7 +64,7 @@ onMounted(async () => {
             </select>
 
             <label for="proveedor" class="form-label">Proveedor</label>
-            <select id="proveedor" v-model="articulo.proveedor_id" class="form-input" required>
+            <select id="proveedor" v-model="articulo.marca_id" class="form-input" required>
                 <option value="" disabled>Seleccione un proveedor</option>
                 <option v-for="proveedor in proveedores" :key="proveedor.id" :value="proveedor.id">
                     {{ proveedor.nombre }}
@@ -138,8 +134,8 @@ h2 {
 }
 
 .btn {
-    background: #e0e7ff;
-    color: #22223b;
+    background: #d1fae5; /* verde claro */
+    color: #065f46;
     border: none;
     border-radius: 6px;
     padding: 0.6rem 1.2rem;
@@ -151,12 +147,12 @@ h2 {
         color 0.2s;
 }
 .btn.primary {
-    background: #4f8cff;
+    background: #22c55e; /* verde principal */
     color: #fff;
 }
 .btn.primary:hover,
 .btn.primary:focus {
-    background: #2563eb;
+    background: #16a34a; /* verde más oscuro al pasar el mouse */
 }
 
 .volver-link {
